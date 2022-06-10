@@ -1,0 +1,8 @@
+*.ts
+*.mp4
+*.rar
+/build/
+/dist/
+*.txt
+/Static_FFmpeg/
+*.spec
