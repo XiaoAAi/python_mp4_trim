@@ -17,9 +17,12 @@ ffmpeg.exe  -ss 00:00:06.00 -i ./RAW/test.mp4 -vcodec copy -acodec copy -t 00:17
 ffmpeg.exe -i ./ADD/begin.mp4 -i ./_OUTPUT/out2.mp4 -i ./ADD/end.mp4 -filter_complex '[0:0] [0:1] [1:0] [1:1] [2:0] [2:1] concat=n=3:v=1:a=1 [v] [a]' -map '[v]' -map '[a]' ./_OUTPUT/concat.mp4 -y 
 
 
+//拼接两个视频方法
+ffmpeg.exe -i ./_OUTPUT/out2.mp4 -i ./ADD/end.mp4 -filter_complex '[0:0] [0:1] [1:0] [1:1] concat=n=2:v=1:a=1 [v] [a]' -map '[v]' -map '[a]' ./_OUTPUT/concat.mp4 -y 
 
 
-
+==//拼接视频 压缩视频码率为2500K
+ffmpeg.exe -i ./_OUTPUT/out2.mp4 -i ./ADD/end.mp4 -filter_complex '[0:0] [0:1] [1:0] [1:1] concat=n=2:v=1:a=1 [v] [a]' -map '[v]' -map '[a]' -b 2500K ./_OUTPUT/concat.mp4 -y 
 
 
 
@@ -39,10 +42,23 @@ ffmpeg.exe -ss 00:00:00.00  -i .\RAW\徐元亮《有效回应客户需求(08)》
 ffmpeg -i input.mp4 -c:v copy ouput.ts		//将MP4转ts
 
 ffmpeg -i input.ts -c:v copy ouput.mp4		//将MP4转ts
-
-
+//无损拼接TS视频
 ffmpeg -i "concat:tmp.ts|end.ts" -c copy output.ts
+//压缩MP4 视频 
+ffmpeg -i input.mp4 -b:a 128K output.mp4
 
+//码率不超过2500KBit
+ffmpeg -i imput.mp4 -b 2500K output.mp4
+
+
+ffmpeg -i test.mp4 -vcodec libx264 -crf 30 test2.mp4
+//其中crf参数范围0~51
+//0代表无压缩，51代表最大压缩
+//网络资料建议18~28
+//数字越大码率压缩率越高，视频质量也越差。
+
+//压缩指定文件大小
+ffmpeg -i Desktop/吉他.mp4  -fs 15MB  Desktop/output1.mp4
 
 
 
