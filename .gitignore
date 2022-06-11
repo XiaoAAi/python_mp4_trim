@@ -6,3 +6,4 @@
 *.txt
 /Static_FFmpeg/
 *.spec
+*.exe

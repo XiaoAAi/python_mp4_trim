@@ -44,6 +44,10 @@ ffmpeg -i input.mp4 -c:v copy ouput.ts		//将MP4转ts
 ffmpeg -i input.ts -c:v copy ouput.mp4		//将MP4转ts
 //无损拼接TS视频
 ffmpeg -i "concat:tmp.ts|end.ts" -c copy output.ts
+//无损拼接TS视频到MP4
+ffmpeg -i "concat:tmp.ts|end.ts" -c copy output.mp4
+
+
 //压缩MP4 视频 
 ffmpeg -i input.mp4 -b:a 128K output.mp4
 
@@ -59,6 +63,34 @@ ffmpeg -i test.mp4 -vcodec libx264 -crf 30 test2.mp4
 
 //压缩指定文件大小
 ffmpeg -i Desktop/吉他.mp4  -fs 15MB  Desktop/output1.mp4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20220611_2158:
+//剪切视频
+ffmpeg.exe -ss 00:00:00.00  -i .\RAW\徐元亮《有效回应客户需求(08)》.mp4 -vcodec copy -acodec copy -t 00:11:53.05 TMP.mp4 -y
+//将TMP.mp4格式压缩成2500K的compress_output.mp4视频
+ffmpeg -i imput.mp4 -b 2500K output.mp4
+//将compresss_output.mp4 视频转成 ts
+ffmpeg.exe -i input.mp4 -c:v copy output.ts 
+//将compress_output.ts 和 end.ts 视频进行拼接 mp4
+ffmpeg.exe -i "concat:compress_output.ts|end.ts" -c copy output.mp4
+
+
+
+
+
 
 
 
