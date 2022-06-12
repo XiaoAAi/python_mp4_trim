@@ -70,26 +70,19 @@ ffmpeg -i Desktop/吉他.mp4  -fs 15MB  Desktop/output1.mp4
 
 
 
-
-
-
-
-
-
-
 20220611_2158:
 //剪切视频
 ffmpeg.exe -ss 00:00:00.00  -i .\RAW\徐元亮《有效回应客户需求(08)》.mp4 -vcodec copy -acodec copy -t 00:11:53.05 TMP.mp4 -y
 //将TMP.mp4格式压缩成2500K的compress_output.mp4视频
-ffmpeg -i imput.mp4 -b 2500K output.mp4
+ffmpeg -i imput.mp4 -b 2500K output.mp4 -y
 //将compresss_output.mp4 视频转成 ts
-ffmpeg.exe -i input.mp4 -c:v copy output.ts 
-//将compress_output.ts 和 end.ts 视频进行拼接 mp4
+ffmpeg.exe -i input.mp4 -c:v copy output.ts -y
+//将compress_output.ts 和 end.ts 视频进行拼接 mp4 保持原始音频
+ffmpeg.exe -i "concat:compress_output.ts|end.ts" -c copy output.mp4 -y
+
+
+//将compress_output.ts 和 end.ts 视频进行拼接 mp4 音频128K
 ffmpeg.exe -i "concat:compress_output.ts|end.ts" -c copy output.mp4
-
-
-
-
 
 
 

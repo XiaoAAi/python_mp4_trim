@@ -96,8 +96,7 @@ if __name__ == '__main__':
         # print(timeVideo)
         str_time_video = get_ffmpeg_format_time(timeVideo)
         # print(str_time_video)
-        if os.path.isfile("./TMP.mp4"):
-            os.remove('./TMP.mp4')
+
         str_cmd_crop = "ffmpeg.exe -ss 00:00:00.00  -i " + video_name +\
             " -vcodec copy -acodec copy -t " + str_time_video +" TMP.mp4 -y"
         # print(str_cmd_crop)
@@ -116,9 +115,9 @@ if __name__ == '__main__':
         result = open(str_file_result, 'a+')
         new_video_size = int(int(ffmpeg.probe(map_old_new_path[video_name])['format']['size']) / 1024 / 1024)
         if new_video_size > 500 :
-            result.writelines(map_old_new_path[video_name] + "\t SIZE:OverFlower 500M" + '\t Completed\n')
+            result.writelines(map_old_new_path[video_name] + "\t SIZE:{0}M OverFlower 500M".format(new_video_size) + '\t Completed\n')
         else:
-            result.writelines(map_old_new_path[video_name] + "\t SIZE:" + str(new_video_size) + 'M' + '\t Completed\n')
+            result.writelines(map_old_new_path[video_name] + "\t SIZE:{0}M".format(new_video_size) + '\t Completed\n')
         result.close()
 
 
